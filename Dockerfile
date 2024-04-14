@@ -12,7 +12,16 @@ RUN npm install
 
 # Copy the rest of the application code
 COPY . .
+
+# Ensure Jest is executable
 RUN chmod +x ./node_modules/.bin/jest
 
-# Run tests
+# Install ESLint globally
+RUN npm install -g eslint
+COPY eslint.config.js ./
+
+# Run ESLint
+RUN eslint .
+
+# Define the default command to run tests
 CMD [ "npm", "test" ]
